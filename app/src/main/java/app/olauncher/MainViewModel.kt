@@ -51,6 +51,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val resetLauncherLiveData = SingleLiveEvent<Unit?>()
     val showRecentApps = SingleLiveEvent<Unit?>()
 
+    init {
+        // One-time migration: move existing pinned home slots into the favorites set
+        prefs.migrateSlotsToFavoritesIfNeeded()
+    }
+
     fun selectedApp(appModel: AppModel, flag: Int) {
         when (flag) {
             Constants.FLAG_LAUNCH_APP -> {
@@ -75,6 +80,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             Constants.FLAG_SET_HOME_APP_6 -> saveHomeApp(appModel, 6)
             Constants.FLAG_SET_HOME_APP_7 -> saveHomeApp(appModel, 7)
             Constants.FLAG_SET_HOME_APP_8 -> saveHomeApp(appModel, 8)
+            Constants.FLAG_SET_HOME_APP_9 -> saveHomeApp(appModel, 9)
+            Constants.FLAG_SET_HOME_APP_10 -> saveHomeApp(appModel, 10)
+            Constants.FLAG_SET_HOME_APP_11 -> saveHomeApp(appModel, 11)
+            Constants.FLAG_SET_HOME_APP_12 -> saveHomeApp(appModel, 12)
+            Constants.FLAG_SET_HOME_APP_13 -> saveHomeApp(appModel, 13)
+            Constants.FLAG_SET_HOME_APP_14 -> saveHomeApp(appModel, 14)
 
             Constants.FLAG_SET_SWIPE_LEFT_APP -> saveSwipeApp(appModel, isLeft = true)
             Constants.FLAG_SET_SWIPE_RIGHT_APP -> saveSwipeApp(appModel, isLeft = false)
@@ -170,6 +181,54 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         prefs.isShortcut8 = false
                         prefs.shortcutId8 = ""
                     }
+                    9 -> {
+                        prefs.appName9 = appModel.appLabel
+                        prefs.appPackage9 = appModel.appPackage
+                        prefs.appUser9 = appModel.user.toString()
+                        prefs.appActivityClassName9 = appModel.activityClassName
+                        prefs.isShortcut9 = false
+                        prefs.shortcutId9 = ""
+                    }
+                    10 -> {
+                        prefs.appName10 = appModel.appLabel
+                        prefs.appPackage10 = appModel.appPackage
+                        prefs.appUser10 = appModel.user.toString()
+                        prefs.appActivityClassName10 = appModel.activityClassName
+                        prefs.isShortcut10 = false
+                        prefs.shortcutId10 = ""
+                    }
+                    11 -> {
+                        prefs.appName11 = appModel.appLabel
+                        prefs.appPackage11 = appModel.appPackage
+                        prefs.appUser11 = appModel.user.toString()
+                        prefs.appActivityClassName11 = appModel.activityClassName
+                        prefs.isShortcut11 = false
+                        prefs.shortcutId11 = ""
+                    }
+                    12 -> {
+                        prefs.appName12 = appModel.appLabel
+                        prefs.appPackage12 = appModel.appPackage
+                        prefs.appUser12 = appModel.user.toString()
+                        prefs.appActivityClassName12 = appModel.activityClassName
+                        prefs.isShortcut12 = false
+                        prefs.shortcutId12 = ""
+                    }
+                    13 -> {
+                        prefs.appName13 = appModel.appLabel
+                        prefs.appPackage13 = appModel.appPackage
+                        prefs.appUser13 = appModel.user.toString()
+                        prefs.appActivityClassName13 = appModel.activityClassName
+                        prefs.isShortcut13 = false
+                        prefs.shortcutId13 = ""
+                    }
+                    14 -> {
+                        prefs.appName14 = appModel.appLabel
+                        prefs.appPackage14 = appModel.appPackage
+                        prefs.appUser14 = appModel.user.toString()
+                        prefs.appActivityClassName14 = appModel.activityClassName
+                        prefs.isShortcut14 = false
+                        prefs.shortcutId14 = ""
+                    }
                 }
             }
 
@@ -245,6 +304,54 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         prefs.appActivityClassName8 = null
                         prefs.isShortcut8 = true
                         prefs.shortcutId8 = appModel.shortcutId
+                    }
+                    9 -> {
+                        prefs.appName9 = appModel.appLabel
+                        prefs.appPackage9 = appModel.appPackage
+                        prefs.appUser9 = appModel.user.toString()
+                        prefs.appActivityClassName9 = null
+                        prefs.isShortcut9 = true
+                        prefs.shortcutId9 = appModel.shortcutId
+                    }
+                    10 -> {
+                        prefs.appName10 = appModel.appLabel
+                        prefs.appPackage10 = appModel.appPackage
+                        prefs.appUser10 = appModel.user.toString()
+                        prefs.appActivityClassName10 = null
+                        prefs.isShortcut10 = true
+                        prefs.shortcutId10 = appModel.shortcutId
+                    }
+                    11 -> {
+                        prefs.appName11 = appModel.appLabel
+                        prefs.appPackage11 = appModel.appPackage
+                        prefs.appUser11 = appModel.user.toString()
+                        prefs.appActivityClassName11 = null
+                        prefs.isShortcut11 = true
+                        prefs.shortcutId11 = appModel.shortcutId
+                    }
+                    12 -> {
+                        prefs.appName12 = appModel.appLabel
+                        prefs.appPackage12 = appModel.appPackage
+                        prefs.appUser12 = appModel.user.toString()
+                        prefs.appActivityClassName12 = null
+                        prefs.isShortcut12 = true
+                        prefs.shortcutId12 = appModel.shortcutId
+                    }
+                    13 -> {
+                        prefs.appName13 = appModel.appLabel
+                        prefs.appPackage13 = appModel.appPackage
+                        prefs.appUser13 = appModel.user.toString()
+                        prefs.appActivityClassName13 = null
+                        prefs.isShortcut13 = true
+                        prefs.shortcutId13 = appModel.shortcutId
+                    }
+                    14 -> {
+                        prefs.appName14 = appModel.appLabel
+                        prefs.appPackage14 = appModel.appPackage
+                        prefs.appUser14 = appModel.user.toString()
+                        prefs.appActivityClassName14 = null
+                        prefs.isShortcut14 = true
+                        prefs.shortcutId14 = appModel.shortcutId
                     }
                 }
             }
@@ -370,6 +477,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getAppList(includeHiddenApps: Boolean = false) {
         viewModelScope.launch {
             val apps = getAppsList(appContext, prefs, includeRegularApps = true, includeHiddenApps)
+            // Keep complete A-Z list intact. Favorites are rendered as a separate section by the adapter.
             appList.value = apps
         }
     }

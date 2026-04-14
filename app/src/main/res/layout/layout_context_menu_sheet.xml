@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sheet_bg"
+    android:orientation="vertical">
+
+    <!-- Handle bar -->
+    <View
+        android:layout_width="36dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="#40808080"
+        android:backgroundTint="@null" />
+
+    <!-- App name header -->
+    <TextView
+        android:id="@+id/sheetAppName"
+        style="@style/TextSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp"
+        android:textColor="#80808080"
+        android:textSize="11sp"
+        android:textAllCaps="true"
+        android:letterSpacing="0.08" />
+
+    <!-- Scrollable content area -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <!-- ═══ Actions group (main state) ═══ -->
+            <LinearLayout
+                android:id="@+id/actionsGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Favorite -->
+                <TextView
+                    android:id="@+id/appFavorite"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/row_highlight_bg"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/favorite"
+                    app:drawableStartCompat="@drawable/ic_star"
+                    android:drawablePadding="14dp" />
+
+                <!-- Rename -->
+                <TextView
+                    android:id="@+id/appRename"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/row_highlight_bg"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/rename"
+                    app:drawableStartCompat="@drawable/ic_rename"
+                    android:drawablePadding="14dp" />
+
+                <!-- Hide -->
+                <TextView
+                    android:id="@+id/appHide"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/row_highlight_bg"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/hide"
+                    app:drawableStartCompat="@drawable/ic_hide"
+                    android:drawablePadding="14dp" />
+
+                <!-- Shortcuts -->
+                <TextView
+                    android:id="@+id/appShortcuts"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/row_highlight_bg"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/shortcuts"
+                    app:drawableStartCompat="@drawable/ic_shortcuts"
+                    android:drawablePadding="14dp" />
+
+                <!-- Info -->
+                <TextView
+                    android:id="@+id/appInfo"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/row_highlight_bg"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/info"
+                    app:drawableStartCompat="@drawable/ic_info"
+                    android:drawablePadding="14dp" />
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginVertical="4dp"
+                    android:background="#20808080" />
+
+                <!-- Delete -->
+                <TextView
+                    android:id="@+id/appDelete"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/row_highlight_bg"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/delete"
+                    android:textColor="#CC5555"
+                    app:drawableStartCompat="@drawable/ic_delete"
+                    android:drawablePadding="14dp" />
+
+            </LinearLayout>
+
+            <!-- ═══ Rename group (rename sub-state) ═══ -->
+            <LinearLayout
+                android:id="@+id/renameGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end|center_vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etAppRename"
+                    style="@style/TextLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:inputType="textCapWords"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:paddingVertical="12dp"
+                    android:textColorHint="?attr/primaryColorTrans50" />
+
+                <TextView
+                    android:id="@+id/tvSaveRename"
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:drawablePadding="2dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/rename"
+                    android:textSize="12sp"
+                    app:drawableTopCompat="@drawable/ic_check" />
+
+                <TextView
+                    android:id="@+id/appRenameClose"
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/close"
+                    android:textSize="12sp"
+                    app:drawableTopCompat="@drawable/ic_close" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

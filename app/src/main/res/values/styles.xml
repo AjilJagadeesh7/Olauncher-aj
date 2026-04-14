@@ -61,6 +61,23 @@
         <item name="android:cursorVisible">false</item>
     </style>
 
+    <!-- Glass popup menu -->
+    <style name="GlassPopupAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
+
+    <style name="Widget.Glass.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_glass_bg</item>
+        <item name="android:popupAnimationStyle">@style/GlassPopupAnimation</item>
+        <item name="android:dropDownWidth">220dp</item>
+    </style>
+
+    <style name="GlassPopupTheme" parent="ThemeOverlay.AppCompat">
+        <item name="popupMenuStyle">@style/Widget.Glass.PopupMenu</item>
+        <item name="android:popupMenuStyle">@style/Widget.Glass.PopupMenu</item>
+    </style>
+
     <style name="TextDefault" parent="@android:style/TextAppearance.Large">
         <item name="android:textColor">@drawable/text_colors_default</item>
         <item name="android:textColorHint">?attr/primaryColorTrans80</item>
@@ -73,6 +90,8 @@
     <style name="TextLarge" parent="TextDefault">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="TextMedium" parent="TextDefault">

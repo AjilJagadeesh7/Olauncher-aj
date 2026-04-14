@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Row highlight: rounded rect, used as background for app drawer rows.
+     The plain <item> provides the visible pressed fill; the mask item
+     clips the ripple to the rounded-rect shape. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/primaryColorTrans50">
+    <!-- Visible pressed-state fill (semi-transparent) -->
+    <item>
+        <selector>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <solid android:color="#20808080" />
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+            <item android:state_activated="true">
+                <shape android:shape="rectangle">
+                    <solid android:color="#20808080" />
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent" />
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+    <!-- Ripple shape mask -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFFFF" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+</ripple>

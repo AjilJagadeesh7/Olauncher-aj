@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:clipChildren="false"
     android:orientation="vertical"
     tools:context=".ui.HomeFragment">
 
@@ -22,41 +23,88 @@
         android:layout_height="1dp"
         android:contentDescription="@string/recents_layout_description" />
 
-    <!-- Clock and calendar-->
-    <LinearLayout
-        android:id="@+id/dateTimeLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="48dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+    <!-- Single continuous scroll: favorites + all apps below -->
+    <app.olauncher.ui.HomeScrollView
+        android:id="@+id/homeAppsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <TextClock
-            android:id="@+id/clock"
-            style="@style/TextDefault"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:format12Hour="h:mm"
-            android:textSize="@dimen/time_size"
-            tools:text="02:34" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/date"
-            style="@style/TextDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:format12Hour="EEE, dd MMM"
-            android:format24Hour="EEE, dd MMM"
-            android:paddingHorizontal="3dp"
-            android:textSize="@dimen/date_size"
-            tools:text="Thu, 30 Dec" />
-    </LinearLayout>
+            <!-- Clock and calendar -->
+            <LinearLayout
+                android:id="@+id/dateTimeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-    <!-- Screen time-->
+                <TextClock
+                    android:id="@+id/clock"
+                    style="@style/TextDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:format12Hour="h:mm"
+                    android:textSize="@dimen/time_size"
+                    tools:text="02:34" />
+
+                <TextView
+                    android:id="@+id/date"
+                    style="@style/TextDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:format12Hour="EEE, dd MMM"
+                    android:format24Hour="EEE, dd MMM"
+                    android:paddingHorizontal="3dp"
+                    android:textSize="@dimen/date_size"
+                    tools:text="Thu, 30 Dec" />
+
+                <TextView
+                    android:id="@+id/tvBattery"
+                    style="@style/TextDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="3dp"
+                    android:textSize="@dimen/date_size"
+                    android:visibility="gone"
+                    tools:text="87%" />
+            </LinearLayout>
+
+            <!-- All apps list (favorites first, then all apps — no separate drawer) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:paddingStart="74dp"
+                android:paddingEnd="74dp"
+                android:paddingBottom="48dp" />
+
+        </LinearLayout>
+    </app.olauncher.ui.HomeScrollView>
+
+    <!-- Alphabet scroller: overlays full screen height so letters are evenly spaced -->
+    <app.olauncher.ui.view.AlphabetScrollerView
+        android:id="@+id/alphabetScroller"
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center_vertical" />
+
+    <!-- Screen time -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvScreenTime"
         style="@style/TextSmall"
@@ -71,106 +119,6 @@
         android:visibility="gone"
         tools:text="2h 11m"
         tools:visibility="visible" />
-
-    <!-- Home apps-->
-    <LinearLayout
-        android:id="@+id/homeAppsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="74dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingVertical="@dimen/home_app_padding_vertical">
-
-        <TextView
-            android:id="@+id/homeApp1"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_1"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/homeApp2"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_2"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/homeApp3"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_3"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/homeApp4"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_4"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/homeApp5"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_5"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/homeApp6"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_6"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/homeApp7"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_7"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/homeApp8"
-            style="@style/TextLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/app"
-            android:paddingVertical="@dimen/home_app_padding_vertical"
-            android:tag="@string/tag_8"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/firstRunTips"
@@ -197,4 +145,5 @@
         android:maxLines="1"
         android:text="@string/set_as_default_launcher_u"
         android:visibility="gone" />
+
 </FrameLayout>
